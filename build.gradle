@@ -13,6 +13,27 @@ buildscript {
     }
 }
 
+subprojects {
+    switch (project.name) {
+        case 'app':
+            apply plugin: 'com.android.application'
+            break
+        default:
+            apply plugin: 'com.android.library'
+            break
+    }
+
+    apply from: '../robolectric.gradle'
+
+    android {
+        testOptions {
+            unitTests {
+                includeAndroidResources = true
+            }
+        }
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
